@@ -59,7 +59,7 @@ cart = {
 
 def apply_clearance(cart)
   cart.each{|item|
-    p item[1]
+    p item[1][:clearance]
   }
 end
 
