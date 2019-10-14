@@ -48,19 +48,6 @@ def apply_clearance(cart)
 end
 
 
-=begin
-### The `checkout` method
-Create a `checkout` method that calculates the total cost of the consolidated cart.
-When checking out, follow these steps *in order*:
-* Apply coupon discounts if the proper number of items are present.
-* Apply 20% discount if items are on clearance.
-* If, after applying the coupon discounts and the clearance discounts, the cart's total is over $100, then apply a 10% discount.
-### Named Parameters
-The method signature for the checkout method is
-`consolidate_cart(cart:[])`. This, along with the checkout method uses a ruby 2.0 feature called [Named Parameters](http://brainspec.com/blog/2012/10/08/keyword-arguments-ruby-2-0/).
-Named parameters give you more expressive code since you are specifying what each parameter is for. Another benefit is the order you pass your parameters doesn't matter!
-`checkout(cart: [], coupons: [])` is the same as `checkout(coupons: [], cart: [])`
-=end
 
 def checkout(cart: [], coupons: [])	def checkout(cart: [], coupons: [])
   # code here	  cart = consolidate_cart(cart: cart)
