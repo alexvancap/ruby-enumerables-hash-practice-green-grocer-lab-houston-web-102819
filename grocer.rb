@@ -64,7 +64,6 @@ def apply_clearance(cart)
        price -= (item[1][:price] * 0.2)
     end
   }
-  p price
   return cart
 end
 
