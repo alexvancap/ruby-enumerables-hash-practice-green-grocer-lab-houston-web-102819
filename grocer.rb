@@ -44,7 +44,7 @@ def apply_coupons(cart, coupons)
     end
     result[food] = info
   end
-  result
+  p result
 end
 
 apply_coupons(cart, coupons)
