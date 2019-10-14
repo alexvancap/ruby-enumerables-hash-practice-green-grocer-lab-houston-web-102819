@@ -1,14 +1,14 @@
-def consolidate_cart(cart:[])
-  new_cart = {}
-  cart.each { |item|
-    if new_cart.keys.include?(item.keys[0])
-      new_cart[item.keys[0]][:count] += 1
-    else
-      item.values[0][:count] = 1
-      new_cart[item.keys[0]] = item.values[0]
+def consolidate_cart(cart)
+  cart.each_with_object({}) do |item, result|
+    item.each do |type, attributes|
+      if result[type]
+        attributes[:count] += 1
+      else
+        attributes[:count] = 1
+        result[type] = attributes
+      end
     end
-  }
-  new_cart
+  end
 end
 
 def apply_coupons(cart, coupons)
