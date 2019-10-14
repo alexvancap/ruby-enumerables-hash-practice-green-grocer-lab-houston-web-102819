@@ -49,7 +49,7 @@ end
 
 
 
-def checkout(cart coupons)
+def checkout(cart, coupons)
   cart = apply_coupons(cart: cart, coupons: coupons)
   cart = apply_clearance(cart: cart)
   result = 0
