@@ -46,6 +46,8 @@ def apply_coupons(cart, coupons)
   cart
 end
 
+apply_coupons(cart, coupons)
+
 def apply_clearance(cart)
   cart.each do |name, properties|
     if properties[:clearance]
