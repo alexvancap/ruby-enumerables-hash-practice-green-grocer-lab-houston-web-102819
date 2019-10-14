@@ -60,7 +60,7 @@ cart = {
 def apply_clearance(cart)
   cart.each{|item|
     if item[1][:clearance]
-      p (item[1][:price] / 75) * 100
+      p (item[1][:price] / 80) * 100
     end
   }
   return cart
