@@ -63,6 +63,7 @@ def apply_clearance(cart)
     if item[1][:clearance]
        price -= (item[1][:price] * 0.2)
     end
+    p price
   }
   return cart
 end
