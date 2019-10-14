@@ -29,23 +29,24 @@ coupons = [
 ]
 
 def apply_coupons(cart, coupons)
-  result = {}
-  # code here#
-  cart.each do |food, info|
-    coupons.each do |coupon|
-      if food == coupon[:item] && info[:count] >= coupon[:num]
-        info[:count] =  info[:count] - coupon[:num]
-        if result["#{food} W/COUPON"]
-          result["#{food} W/COUPON"][:count] += 1
-          result["#{food} W/COUPON"][:price] += result["#{food} W/COUPON"][:count]
+  coupons.each do |coupon|
+    if cart.keys.include? coupon[:item]
+      if cart[coupon[:item]][:count] >= coupon[:num]
+        new_name = "#{coupon[:item]} W/COUPON"
+        if cart[new_name]
+          cart[new_name][:count] += coupon[:num]
         else
-          result["#{food} W/COUPON"] = {:price => coupon[:cost], :clearance => info[:clearance], :count => 1}
+          cart[new_name] = {
+            count: coupon[:num],
+            price: coupon[:cost]/coupon[:num],
+            clearance: cart[coupon[:item]][:clearance]
+          }
         end
+        cart[coupon[:item]][:count] -= coupon[:num]
       end
     end
-    result[food] = info
   end
-  p result
+  cart
 end
 
 
