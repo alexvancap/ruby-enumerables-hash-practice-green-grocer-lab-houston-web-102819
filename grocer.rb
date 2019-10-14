@@ -69,4 +69,5 @@ end
 
 def checkout(cart, coupons)
   cart.sort
+  puts coupons
 end
