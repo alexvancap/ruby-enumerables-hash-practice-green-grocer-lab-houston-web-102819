@@ -1,4 +1,5 @@
 def consolidate_cart(cart)
+  result = {}
   cart.each do |item|
       item_name, item_details = item.first
       if result.has_key?(item_name)
