@@ -1,5 +1,4 @@
 def consolidate_cart(cart:[])
-  # code here
   new_cart = {}
   cart.each { |item|
     if new_cart.keys.include?(item.keys[0])
