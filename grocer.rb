@@ -60,8 +60,7 @@ cart = {
 def apply_clearance(cart)
   cart.each{|item|
     if item[1][:clearance]
-      p 1
-      item[1][:price] *= 0.20
+      p item[1][:price]
     end
   }
   return cart
