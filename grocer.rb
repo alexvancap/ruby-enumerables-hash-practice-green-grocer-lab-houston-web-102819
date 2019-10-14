@@ -12,64 +12,39 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-
   coupons.each do |coupon|
-  coupon_name = coupon[:item]
-  coupon_item_num = coupon[:num]
-  cart_item = cart[coupon_name]
-
-  next if cart_item.nil? || cart_item[:count] < coupon_item_num
-
-  cart_item[:count] -= coupon_item_num
-
-  coupon_in_cart = cart["#{coupon_name} W/COUPON"]
-
-  if coupon_in_cart
-    coupon_in_cart[:count] += 1
-  else
-    cart["#{coupon_name} W/COUPON"] = {
-      price: (coupon[:cost] / 2),
-      clearance: cart_item[:clearance],
-      count: 2
-    }
+    name = coupon[:item]
+    if cart[name] && cart[name][:count] >= coupon[:num]
+      if cart["#{name} W/COUPON"]
+        cart["#{name} W/COUPON"][:count] += 1
+      else
+        cart["#{name} W/COUPON"] = {:count => 1, :price => coupon[:cost]}
+        cart["#{name} W/COUPON"][:clearance] = cart[name][:clearance]
+      end
+      cart[name][:count] -= coupon[:num]
+    end
   end
+  cart
 end
-
-cart
-end
-
-
-
-coupons = [
-  {:item => "AVOCADO", :num => 2, :cost => 5.00},
-  {:item => "BEER", :num => 2, :cost => 20.00},
-  {:item => "CHEESE", :num => 3, :cost => 15.00}
-]
-
-cart = {
-  "AVOCADO" => {:price => 3.00, :clearance => true, :count => 3},
-  "KALE"    => {:price => 3.00, :clearance => false, :count => 1}
-}
-
 
 def apply_clearance(cart)
-  cart.each{|item|
-    if item[1][:clearance]
-       item[1][:price] -= (item[1][:price] * 0.2)
+  cart.each do |name, properties|
+    if properties[:clearance]
+      updated_price = properties[:price] * 0.80
+      properties[:price] = updated_price.round(2)
     end
-  }
-  return cart
+  end
+  cart
 end
-
 
 def checkout(cart, coupons)
-  cart = consolidate_cart(cart: cart)
-  cart = apply_coupons(cart:cart, coupons: coupons)
-  cart = apply_clearance(cart: cart)
-
+  consolidated_cart = consolidate_cart(cart)
+  couponed_cart = apply_coupons(consolidated_cart, coupons)
+  final_cart = apply_clearance(couponed_cart)
   total = 0
-  cart.each { |k,v| total += v[:price] * v[:count] }
-  total > 100 ? (total * 0.9).round(2) : total
+  final_cart.each do |name, properties|
+    total += properties[:price] * properties[:count]
+  end
+  total = total * 0.9 if total > 100
+  total
 end
-
-p checkout(cart, coupons)
