@@ -32,7 +32,7 @@ def apply_coupons(cart, coupons)
 end
 
 
-def apply_clearance(cart:[])	def apply_clearance(cart:[])
+def apply_clearance(cart)
   clearance_cart = {}
   cart.each do |food, info|
     clearance_cart[food] = {}
@@ -45,7 +45,7 @@ def apply_clearance(cart:[])	def apply_clearance(cart:[])
     clearance_cart[food][:count] = info[:count]
   end
   clearance_cart
-end	end
+end
 
 
 =begin
