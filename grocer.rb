@@ -63,6 +63,7 @@ def apply_clearance(cart)
       item[1][:price] /= 0.20
     end
   }
+  return cart
 end
 
  apply_clearance(cart)
