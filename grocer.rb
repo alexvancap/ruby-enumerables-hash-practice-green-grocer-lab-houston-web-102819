@@ -22,6 +22,8 @@ cart = [{"AVOCADO" => {:price => 3.00, :clearance => true}},
 {"BEETS" => {:price => 2.50, :clearance => false}},
 {"SOY MILK" => {:price => 4.50, :clearance => true}}]
 
+coupons = 
+
 def apply_coupons(cart, coupons)
   coupons.each do |coupon|
     name = coupon[:item]
